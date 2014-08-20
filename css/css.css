@@ -52,12 +52,16 @@ div.categoryWidget {
     z-index: 1000;
     position: relative;
 }
+#categorySelect option:first-child {
+    color: red;
+}
 .categoryWidget input {
     margin-top: 20px;
     display: inline-block;
     width: 70%;
     border: 0;
     line-height: 2em;
+    position: relative;
 }
 .categoryWidget h1 {
     font-size: 0.8em;
@@ -102,7 +106,7 @@ div.topMenu {
     float: left;
     text-align: right;
 }
-.left img {
+.left > img {
     float: left;
     margin-left: 5% ;
 }
@@ -130,11 +134,16 @@ div.topMenu {
     width: 100%;
 }
 .left #code {
-    width: 51%;
+    width: 40%;
     position: absolute;
     margin-left: 5px;
 }
-
+.pie {
+    width: 16px;
+    margin-left: 43%;
+    position: absolute;
+    border: 1px solid;
+}
 .mainHeader h1 {
     margin: 0px;
 }
@@ -271,6 +280,15 @@ div.row {
     font-family: Arial;
     color: #000000;
     text-decoration: none;
+}
+
+.gradGrey {
+    background: #d9dde0;
+    background-image: -webkit-linear-gradient(top, #d9dde0, #a4a9ad);
+    background-image: -moz-linear-gradient(top, #d9dde0, #a4a9ad);
+    background-image: -ms-linear-gradient(top, #d9dde0, #a4a9ad);
+    background-image: -o-linear-gradient(top, #d9dde0, #a4a9ad);
+    background-image: linear-gradient(to bottom, #d9dde0, #a4a9ad);
 }
 
 div.row_old:hover {
@@ -445,6 +463,32 @@ div.instructions {
     margin: 0px;
 }
 
+
+.pieDelete {
+    position: absolute;
+    right: 0px;
+    padding: 5px;
+}
+.piePage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+}
+
+.piePage h1 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+.pieWrapper {
+    width: 100%;
+    margin: auto;
+}
+#chartdiv {
+    margin: auto;
+}
+
+
 #log {
     display: none;
 }
@@ -488,7 +532,7 @@ div.instructions {
     .mainHeader div.left {
         width: 50%;
     }
-    .left img {
+    .left > img {
         width: 2em;
         margin-left: 5px;
         margin-top: 10px;
@@ -501,6 +545,7 @@ div.instructions {
     {
         vertical-align: top;
     }
+
     .mainHeader div.right {
         width: 50%;
         margin-top: 10px;
@@ -557,7 +602,7 @@ div.instructions {
     .mainHeader div.left {
         width: 50%;
     }
-    .left img {
+    .left > img {
         width: 2em;
         margin-left: 5px;
         margin-top: 10px;
@@ -627,7 +672,7 @@ div.instructions {
     .mainHeader div.left {
         width: 50%;
     }
-    .left img {
+    .left > img {
         width: 2em;
         margin-left: 5px;
         margin-top: 10px;
@@ -681,15 +726,15 @@ div.instructions {
     .mainHeader div.left {
         width: 50%;
     }
-    .left img {
+    .left > img {
         width: 50px;
     }
     .left > div {
         margin-top: 40px;
         margin-bottom: 10px;
     }
-    .left #code {
-        width: 64%;
+    .pie {
+        width: 25px;
     }
     .mainHeader div.right {
         width: 50%;
@@ -727,15 +772,15 @@ div.instructions {
     .mainHeader div.left {
         width: 50%;
     }
-    .left img {
+    .left > img {
         width: 70px;
     }
     .left > div {
         margin-top: 50px;
         margin-bottom: 10px;
     }
-    .left #code {
-        width: 61%;
+    .pie {
+        width: 25px;
     }
     .mainHeader div.right {
         width: 50%;
@@ -787,7 +832,7 @@ div.instructions {
     .right div.space {
         margin-top: 35px;
     }
-    .left img {
+    .left > img {
         width: 100px;
         margin-left: 0px;
     }
@@ -804,8 +849,8 @@ div.instructions {
         margin-top: 60px;
         margin-bottom: 20px;
     }
-    .left #code {
-        width: 39%;
+    .pie {
+        width: 45px;
     }
     .mainHeader div.right {
         width: 50%;
@@ -875,7 +920,7 @@ div.instructions {
     .right div.space {
         margin-top: 35px;
     }
-    .left img {
+    .left > img {
         width: 120px;
         margin-left: 0px;
     }
@@ -896,8 +941,8 @@ div.instructions {
         margin-top: 70px;
         margin-bottom: 20px;
     }
-    .left #code {
-        width: 39%;
+    .pie {
+        width: 55px;
     }
     .mainHeader div.right {
         width: 50%;

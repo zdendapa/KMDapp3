@@ -20,7 +20,7 @@ var lastSyncDate;   // date of last sync
 
 var db = {
     settings: {
-        shortName: 'kmd11g',
+        shortName: 'kmdPocketCompanion_a',
         version: '1.0',
         displayName: 'KMD app',
         maxSize: 655367 // in bytes
@@ -158,7 +158,7 @@ db.initSheetsData = function()
                 //showInstructionsCodes();
 
                 $("body").css("display","block");
-                $("#categorySelect").append($("<option></option>").attr("value","New page").text("New page"));
+                $("#categorySelect").prepend($("<option></option>").attr("value","New page").text("New page"));
             }
             else
             {
@@ -166,7 +166,7 @@ db.initSheetsData = function()
                 for (var i=0; i<len; i++){
                     $( "#categorySelect" ).append($("<option></option>").attr("value", results.rows.item(i).shid).text(results.rows.item(i).category));
                 }
-                $("#categorySelect").append($("<option></option>").attr("value","New page").text("New page"));
+                $("#categorySelect").prepend($("<option></option>").attr("value","New page").text("New page"));
                 // load header and table
                 // get last opened sheet shid
                 database.transaction(function(tx)
@@ -198,7 +198,8 @@ db.CreateNextTable = function()
                 shid = Number(results.rows.item(0).lastshid) + 1;
                 //$("#categorySelect").append($("<option></option>").attr("value", shid).text(""));
 
-                $("#categorySelect option").eq($("#categorySelect > option").length-1).before($("<option></option>").val(shid).html(""));
+                //$("#categorySelect option").eq($("#categorySelect > option").length-1).before($("<option></option>").val(shid).html(""));
+                $("#categorySelect").append($("<option></option>").val(shid).html(""));
                 $("#categorySelect").val(shid);
 
             db.setOpenedSheet();
@@ -309,7 +310,7 @@ db.loadSheet = function()
                 lastRowID = 0;
                 for (var i=0; i<len; i++){
                     //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).payment);
-                    $("ul.content").append('<li data-id="'+results.rows.item(i).rowid+'"><span class="dater"><input onchange="dateFormatCheck(this)" value="'+results.rows.item(i).dater+'"></span> <span class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span> <span class="description"><input  value="'+results.rows.item(i).desc+'" onchange="addRowCheck(this)"></span> <span class="checkRef"><input value="'+results.rows.item(i).checkRef+'"></span> <span class="payment"><input onchange="priceFormatCheck(this)" value="'+results.rows.item(i).payment+'"></span> <span class="last"><input style="color:'+(results.rows.item(i).balance>=0?String("black"):String("red"))+'"  value="'+results.rows.item(i).balance+'" readonly></span> </li>');
+                    $("ul.content").append('<li data-id="'+results.rows.item(i).rowid+'"><span class="dater"><input onchange="dateFormatCheck(this)" value="'+results.rows.item(i).dater+'"></span><span class="description"><input  value="'+results.rows.item(i).desc+'" onchange="addRowCheck(this)"></span><span class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span><span class="checkRef"><input value="'+results.rows.item(i).checkRef+'"></span> <span class="payment"><input onchange="priceFormatCheck(this)" value="'+results.rows.item(i).payment+'"></span> <span class="last"><input style="color:'+(results.rows.item(i).balance>=0?String("black"):String("red"))+'"  value="'+results.rows.item(i).balance+'" readonly></span> </li>');
                     // select right option on the select
                     $("ul.content").find("li[data-id='"+results.rows.item(i).rowid+"']").find("select").val(results.rows.item(i).paid);
                     //value="'+results.rows.item(i).paid+'"
@@ -546,4 +547,50 @@ db.deleteShid = function(success_callback)
         tx.executeSql('DELETE FROM sheetsheaders WHERE shid='+shid);
     }, errorCB, success_callback);
 
+};
+
+
+
+db.pieDataGetShid = function(success_callback)
+{
+    var code = $("#code option:selected").text();
+    pieData = [];
+    database.transaction(function(tx){
+        tx.executeSql('SELECT shid, category from sheetsheaders where code ="'+code+'"', [], function(tx, results) {
+
+            var fun;
+            if(results.rows.length>0)
+            {
+                for(var i=0;i<results.rows.length;i++)
+                {
+                    // on the last run function
+                    if(i==results.rows.length-1) fun = pieRender;
+                    db.pieDataGetCount(results.rows.item(i).shid,results.rows.item(i).category,fun);
+                }
+            }
+        }, errorCB);
+    }, errorCB);
+};
+
+db.pieDataGetCount = function(sh,shName,success_callback)
+{
+    database.transaction(function(tx){
+        tx.executeSql('select payment from sheetsdata where shid ="'+sh+'"', [], function(tx, results) {
+
+            if(results.rows.length>0)
+            {
+                var total = 0;
+                for(var i=0;i<results.rows.length;i++)
+                {
+                    total += Number(results.rows.item(i).payment);
+                    var s = {};
+                }
+                var s =[shName, total];
+                pieData.push(s);
+            }
+
+            if(success_callback && pieData.length>0) success_callback();
+
+        }, errorCB);
+    }, errorCB);
 };

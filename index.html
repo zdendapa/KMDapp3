@@ -76,6 +76,9 @@
     <script src="js/encoder.js"></script>
     <link rel="stylesheet" href="css/css.css" />
 
+    <script src="js/jquery.jqplot.min.js"></script>
+    <script src="js/jqplot.pieRenderer.js"></script>
+    <link rel="stylesheet" href="css/jquery.jqplot.css" />
 
     <title>i-Count</title>
 </head>
@@ -115,6 +118,7 @@
                         <label>Code#</label>
                         <select id="code" class="registraceSelectButtons" onchange="db.headerUpdate()">
                         </select>
+                        <img class="pie" src="img/pie.png" onclick="pieShow()">
                     </div>
 
                 </div>
@@ -143,6 +147,14 @@
         <div class="pickUp">
             <h1>Pick any choice to create a new page.</h1>
         </div>
+    </div>
+    <div class="piePage">
+        <div class="pieDelete gradGrey" onclick="pieHide()">Back</div>
+        <h1>Category: Auto</h1>
+        <div class="pieWrapper">
+            <div id="chartdiv"></div>
+        </div>
+
     </div>
 </div>
 <div id="log">

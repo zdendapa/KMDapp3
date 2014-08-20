@@ -32,6 +32,8 @@ logging("currentDate:" + currentDate,1);
 var syncDate;
 syncDate = "";
 
+var pieData=[];
+
 function onDeviceReady()
 {
     //alert("onDeviceReady");
@@ -64,6 +66,59 @@ function init()
 
 
     db.init(); // inside is fileInit();
+    //pieShow();
+}
+function pieShow()
+{
+    db.pieDataGetShid();
+    //pieRender();
+}
+
+function pieHide()
+{
+    $("div.sheets").css("display","block");
+    $("div.topMenu").css("display","block");
+    $("div.piePage").css("display","none");
+}
+
+
+function pieRender()
+{
+    $("div.sheets").css("display","none");
+    $("div.topMenu").css("display","none");
+    $("div.piePage").css("display","block");
+
+    var dimension = $(document).width()>$(document).height()?$(document).height():$(document).width();
+    $("#chartdiv").css("width",dimension);
+    $("#chartdiv").css("height",dimension);
+
+    var s1 = [['Sony',7], ['Samsumg',13.3], ['LG',14.7], ['Vizio',5.2], ['Insignia', 1.2]];
+    s1 = pieData;
+
+    var plot8 = $.jqplot('chartdiv', [s1], {
+        grid: {
+            drawBorder: false,
+            drawGridlines: false,
+            background: '#ffffff',
+            shadow:false
+        },
+        axesDefaults: {
+
+        },
+        seriesDefaults:{
+            renderer:$.jqplot.PieRenderer,
+            rendererOptions: {
+                showDataLabels: true
+            }
+        },
+        legend: {
+            show: true,
+            rendererOptions: {
+                numberRows: 1
+            },
+            location: 's'
+        }
+    });
 }
 
 function transitionInit()
@@ -130,13 +185,10 @@ function clickInit()
     });
 
 
-// ---------- left right buttons
+// ---------- left right button
     $('#categorySelectNext').on('click', function() {
         if($('#categorySelect option:selected').next().val() == "New page")
         {
-            return;
-        }
-        if($('#categorySelect > option').length<3){
             return;
         }
         $("#categorySelect > option:selected")
@@ -145,8 +197,12 @@ function clickInit()
             .prop("selected", true);
         db.loadSheet();memPrev();
     });
-
+// ---------- right button
     $('#categorySelectPrev').on('click', function() {
+        if($('#categorySelect option:selected').prev().val() == "New page")
+        {
+            return;
+        }
         $("#categorySelect > option:selected")
             .prop("selected", false)
             .prev()
@@ -239,7 +295,7 @@ function priceFormatCheck(el)
 
 }
 
-function dateFormatCheck_old(el)
+function dateFormatCheck(el)
 {
     var options = {
         date: new Date(),
