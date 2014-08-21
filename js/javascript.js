@@ -318,10 +318,12 @@ function dateFormatIn(el)
     };
 
     el.blur();
-    datePicker.show(options, function(date,el){
-        var array = date.split("/");
+    datePicker.show(options, function(date){
+        alert(date);
+        //var array = date.split("/");
         //el.value = date.getMonth() + "/" + date.getDate();
-        el.value = array[1] + "/" + array[2];
+        //el.value = array[1] + "/" + array[2];
+        el.value = date;
     });
 
 }
