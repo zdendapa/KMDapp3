@@ -319,7 +319,9 @@ function dateFormatIn(el)
 
     el.blur();
     datePicker.show(options, function(date,el){
-        el.value = date.getMonth() + "/" + date.getDate();
+        var array = date.split("/");
+        //el.value = date.getMonth() + "/" + date.getDate();
+        el.value = array[1] + "/" + array[2];
     });
 
 }
