@@ -319,11 +319,14 @@ function dateFormatIn(el)
 
     el.blur();
     datePicker.show(options, function(date){
-        alert(date);
+        var newDate = new Date(date);
         //var array = date.split("/");
-        //el.value = date.getMonth() + "/" + date.getDate();
+        el.value = newDate.getMonth() + "/" + newDate.getDate();
         //el.value = array[1] + "/" + array[2];
-        el.value = date;
+        //el.value = date;
+        var elNext = $(el).closest('span').next().find('input');
+        $(elNext).focus();
+        $(elNext).click();
     });
 
 }
