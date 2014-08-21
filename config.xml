@@ -6,7 +6,7 @@
         id        = "cz.initedsolutions.kmdPocketCompanion"
         version   = "1.0">
     <!--
-
+        b   - balance recauculate update db
     -->
 
     <preference name="phonegap-version"/>

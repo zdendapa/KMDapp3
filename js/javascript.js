@@ -137,7 +137,7 @@ function clickInit()
         if(dbUpdater2(this))
         {
             addRowCheck(this);
-            focusSetNext(this);
+            //focusSetNext(this); // is set on keypress event
         }
     });
 
@@ -168,21 +168,24 @@ function clickInit()
     $(document).on("keypress",".content input",function(e) {
         if (e.which == 13) {
 
-            if($(this).closest('span').hasClass("dater"))
+            if($(this).closest('span').hasClass("payment"))
             {
-                // focus is set in dateFormatCheck()
-            }
-            else
+                // last field
+            } else if($(this).closest('span').hasClass("description"))
             {
-                //$(this).closest('span').next().find('input').focus();
+                var elNext = $(this).closest('span').next().find('select');
+                $(elNext).focus();
+                $(elNext).click();
+            } else
+            {
+                alert("ii");
                 var elNext = $(this).closest('span').next().find('input');
                 $(elNext).focus();
                 $(elNext).click();
-                //e.preventDefault();
             }
-
         }
     });
+
 
 
 // ---------- left right button
@@ -251,21 +254,30 @@ function recalculateBalance()
         var payment = $(this).find(".payment input").val();
         if(payment > 0)
         {
-            total = parseFloat(Math.round((total-payment) * 100) / 100).toFixed(2);
-            var aviableAmountEl = $(this).find(".last input");
-            $(aviableAmountEl).val(total);
-            $(this).find(".last input").val(total);
-            if(total>=0)
-            {
-                $(aviableAmountEl).css("color","black");
-            } else
-            {
-                $(aviableAmountEl).css("color","red");
-                underValue= true;
-            }
+
+        } else
+        {
+            $(this).find(".payment input").val(0);
+            payment = 0;
         }
+        total = parseFloat(Math.round((total-payment) * 100) / 100).toFixed(2);
+        var aviableAmountEl = $(this).find(".last input");
+        $(aviableAmountEl).val(total);
+        $(this).find(".last input").val(total);
+        if(total>=0)
+        {
+            $(aviableAmountEl).css("color","black");
+        } else
+        {
+            $(aviableAmountEl).css("color","red");
+            underValue= true;
+        }
+//        dbUpdater2($(this).find(".payment input"));
     });
     if(underValue) alert("Available balance is under $0");
+    db.recalculateBalance();
+
+
 }
 
 function priceFormatCheck(el)
@@ -295,8 +307,12 @@ function priceFormatCheck(el)
 
 }
 
-function dateFormatCheck(el)
+function dateFormatIn(el)
 {
+    if (typeof datePicker === 'undefined') {
+        return;
+    }
+
     var options = {
         date: new Date(),
         mode: 'date'
@@ -305,9 +321,10 @@ function dateFormatCheck(el)
     datePicker.show(options, function(date,el){
         el.value = date.getMonth() + "/" + date.getDate();
     });
+
 }
 
-function dateFormatCheck_old(el)
+function dateFormatCheck(el)
 {
 
     value = el.value;
@@ -318,6 +335,7 @@ function dateFormatCheck_old(el)
         {
             alert("Date format must be: 'M/D' or M/D/YY");
             $(el).val("");
+            $(el).focus();
             return;
         }
     }
@@ -339,7 +357,7 @@ function addRow()
     logging("addRow",1);
     lastRowID ++;
 
-    $("ul.content").append('<li data-id="'+lastRowID+'"> <span class="dater"><input onchange="dateFormatCheck(this)"></span><span class="description"><input></span><span class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span><span class="checkRef"><input></span> <span class="payment"><input onchange="priceFormatCheck(this)"></span> <span class="last"><input readonly></span> </li>');
+    $("ul.content").append('<li data-id="'+lastRowID+'"> <span class="dater"><input onchange="dateFormatCheck(this)" onfocus="dateFormatIn(this)"></span><span class="description"><input></span><span class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span><span class="checkRef"><input></span> <span class="payment"><input onchange="priceFormatCheck(this)"></span> <span class="last"><input readonly></span> </li>');
 
     //date picker (without dateFormatCheck()) dont work on Android
     //$("ul.content").append('<li data-id="'+lastRowID+'"> <span class="dater"><input type="date" required="required"></span> <span  class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span> <span class="description"><input></span> <span class="checkRef"><input></span> <span class="payment"><input onchange="priceFormatCheck(this)"></span> <span class="last"><input readonly></span> </li>');
@@ -405,7 +423,8 @@ function deleteAfterSelectCategory()
     {
         $('#categorySelect :nth-child(2)').prop('selected', true);
     }
-    db.loadSheet();
+
+    db.loadSheet();memPrev();
 }
 
 function buttonSave()

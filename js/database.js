@@ -20,7 +20,7 @@ var lastSyncDate;   // date of last sync
 
 var db = {
     settings: {
-        shortName: 'kmdPocketCompanion_a',
+        shortName: 'kmdPocketCompanion_b',
         version: '1.0',
         displayName: 'KMD app',
         maxSize: 655367 // in bytes
@@ -322,6 +322,24 @@ db.loadSheet = function()
     }, errorCB);
 
 
+};
+
+
+db.recalculateBalance = function(success_callback)
+{
+    database.transaction(function(tx)
+    {
+        $(".content li").each(function(){
+            var el = this;
+            var rowID = $(el).attr("data-id");
+            var payment = $(el).find(".payment input").val();
+            var balance = $(el).find(".last input").val();
+            var shid = shidCurrentGet();
+
+                tx.executeSql('UPDATE sheetsdata SET payment="'+String(payment)+'", balance="'+balance+'" WHERE rowid='+rowID+' and shid='+shid);
+            console.log(rowID);
+        });
+    }, errorCB);
 };
 
 db.getLastSheetIndex = function(success_callback)
