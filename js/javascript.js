@@ -178,7 +178,6 @@ function clickInit()
                 $(elNext).click();
             } else
             {
-                alert("ii");
                 var elNext = $(this).closest('span').next().find('input');
                 $(elNext).focus();
                 $(elNext).click();
@@ -310,7 +309,7 @@ function priceFormatCheck(el)
 function dateFormatIn(el)
 {
     if (typeof datePicker === 'undefined') {
-        return;
+        //return;
     }
 
     var options = {
@@ -319,6 +318,7 @@ function dateFormatIn(el)
     };
 
     datePicker.show(options, function(date,el){
+        el.blur();
         el.value = date.getMonth() + "/" + date.getDate();
     });
 
