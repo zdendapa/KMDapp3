@@ -308,7 +308,7 @@ function priceFormatCheck(el)
 
 function dateFormatIn(el)
 {
-
+    return;
     if (typeof datePicker === 'undefined') {
         return;
     }
