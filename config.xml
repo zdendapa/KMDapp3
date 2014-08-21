@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.initedsolutions.kmdPocketCompanion"
-        version   = "1.1">
+        version   = "1.2">
     <!--
         b   - balance recauculate update db
     -->
@@ -21,12 +21,12 @@
         Enable individual API permissions here.
         The "device" permission is required for the 'deviceready' event.
     -->
-
-    <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="org.apache.cordova.file" />
-    <gap:plugin name="org.apache.cordova.file-transfer" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.1.0" />
     <gap:plugin name="com.plugin.datepicker" version="0.3.2" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+    <gap:plugin name="org.apache.cordova.file" version="1.0.1" />
+    <gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.3.3" />
+
 
     <gap:config-file platform="ios" parent="UIStatusBarHidden">
         <true/>

@@ -308,6 +308,7 @@ function priceFormatCheck(el)
 
 function dateFormatIn(el)
 {
+
     if (typeof datePicker === 'undefined') {
         return;
     }
@@ -317,8 +318,8 @@ function dateFormatIn(el)
         mode: 'date'
     };
 
+    el.blur();
     datePicker.show(options, function(date,el){
-        el.blur();
         el.value = date.getMonth() + "/" + date.getDate();
     });
 
