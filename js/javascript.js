@@ -309,7 +309,7 @@ function priceFormatCheck(el)
 function dateFormatIn(el)
 {
     if (typeof datePicker === 'undefined') {
-        //return;
+        return;
     }
 
     var options = {
