@@ -342,12 +342,14 @@ function dateFormatIn(el)
 
     el.blur();
     datePicker.show(options, function(date){
-        // manage set or cance button
         if(date)
         {
             // fill date in input
             var newDate = new Date(date);
             el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate();
+
+            // happend when is cancel button press
+            if(isNaN(Number(newDate.getMonth()))) return;
 
             // focus next field
             var elNext = $(el).closest('span').next().find('input');
