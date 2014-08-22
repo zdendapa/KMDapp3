@@ -70,7 +70,7 @@ function init()
 }
 function pieShow()
 {
-    db.pieDataGetShid();
+    db.pieDataGetShid(pieRender);
     //pieRender();
 }
 
@@ -87,13 +87,18 @@ function pieRender()
     $("div.sheets").css("display","none");
     $("div.topMenu").css("display","none");
     $("div.piePage").css("display","block");
+    $(".piePage h1").html($("#code option:selected").text() + " summary");
+
 
     var dimension = $(document).width()>$(document).height()?$(document).height():$(document).width();
-    $("#chartdiv").css("width",dimension);
-    $("#chartdiv").css("height",dimension);
+    $("#chartdiv").css("width",dimension /2 +"px");
+    $("#chartdiv").css("height",dimension /2 +"px");
+
 
     var s1 = [['Sony',7], ['Samsumg',13.3], ['LG',14.7], ['Vizio',5.2], ['Insignia', 1.2]];
     s1 = pieData;
+    console.log(pieData);
+
 
     var plot8 = $.jqplot('chartdiv', [s1], {
         grid: {
@@ -108,17 +113,33 @@ function pieRender()
         seriesDefaults:{
             renderer:$.jqplot.PieRenderer,
             rendererOptions: {
-                showDataLabels: true
+                showDataLabels: false
             }
         },
         legend: {
             show: true,
             rendererOptions: {
-                numberRows: 1
+                numberColumns: 1
             },
-            location: 's'
+            location: 'e'
         }
     });
+
+    $("#chartdivTable table").css("width",dimension*0.8);
+    $("#chartdivTable tbody").empty();
+    var htmladd = "";
+    for(var i=0;i<pieData.length;i++)
+    {
+        htmladd += "<tr><td>"+pieData[i][0]+"</td><td>"+numDecimalCorrection(pieData[i][1],2)+"</td><tr>";
+    }
+    $("#chartdivTable tbody").append(htmladd);
+
+
+
+
+    //$("table.jqplot-table-legend").css("width","200px");
+
+
 }
 
 function transitionInit()
@@ -187,8 +208,10 @@ function clickInit()
 
 
 
-// ---------- left right button
+// ---------- right button
     $('#categorySelectNext').on('click', function() {
+        if($('#categorySelect option:selected').next().val()==null) return;
+
         if($('#categorySelect option:selected').next().val() == "New page")
         {
             return;
@@ -199,7 +222,7 @@ function clickInit()
             .prop("selected", true);
         db.loadSheet();memPrev();
     });
-// ---------- right button
+// ---------- left button
     $('#categorySelectPrev').on('click', function() {
         if($('#categorySelect option:selected').prev().val() == "New page")
         {
@@ -319,14 +342,18 @@ function dateFormatIn(el)
 
     el.blur();
     datePicker.show(options, function(date){
-        var newDate = new Date(date);
-        //var array = date.split("/");
-        el.value = newDate.getMonth() + "/" + newDate.getDate();
-        //el.value = array[1] + "/" + array[2];
-        //el.value = date;
-        var elNext = $(el).closest('span').next().find('input');
-        $(elNext).focus();
-        $(elNext).click();
+        // manage set or cance button
+        if(date)
+        {
+            // fill date in input
+            var newDate = new Date(date);
+            el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate();
+
+            // focus next field
+            var elNext = $(el).closest('span').next().find('input');
+            $(elNext).focus();
+            $(elNext).click();
+        }
     });
 
 }
@@ -599,4 +626,13 @@ function enableMenuButton()
 
 function menuButton() {
     $("#log").toggle();
+}
+
+// it works just for 2 decimals now
+function numDecimalCorrection(numr,decimals)
+{
+    var ar = numr.toString().split(".");
+    if(ar.length==1) return numr + ".00";
+    numr = numr + "00";
+    return numr.substring(0,numr.indexOf(".")+3);
 }

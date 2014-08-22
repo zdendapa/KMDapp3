@@ -20,7 +20,7 @@ var lastSyncDate;   // date of last sync
 
 var db = {
     settings: {
-        shortName: 'kmdPocketCompanion_c',
+        shortName: 'kmdPocketCompanion_h',
         version: '1.0',
         displayName: 'KMD app',
         maxSize: 655367 // in bytes
@@ -220,14 +220,17 @@ db.headerUpdate = function()
     database.transaction(function(tx)
     {
         var category = $("#category").val();
+        //category = category.replace("'","\'");
+        //category = category.replace(/'/g, "&#39;").replace(/"/g,"&quot;");
+        console.log("category after:" + category);
         var code = $("#code option:selected").text();
         var planSpend = $("#planSpend").val();
         var shid = shidCurrentGet();
         console.log("UPDATE sheetsheaders SET category='"+category+"', code='"+code+"', planSpend='"+planSpend+"' WHERE shid='"+shid+"'");
-        //console.log('UPDATE sheetsheaders SET category="'+category+'", code="'+code+'", planSpend="'+planSpend+'" WHERE shid="'+shid+'"');
-        tx.executeSql("UPDATE sheetsheaders SET category='"+category+"', code='"+code+"', planSpend='"+planSpend+"' WHERE shid='"+shid+"'");
-        //tx.executeSql('UPDATE sheetsheaders SET category="'+category+'", code="'+code+'", planSpend="'+planSpend+'" WHERE shid="'+shid+'"');
-        //tx.executeSql('INSERT INTO headerdata (category, code, planSpend) VALUES ("'+category+'", "'+code+'", '+planSpend+')');
+
+        tx.executeSql("UPDATE sheetsheaders SET category = ?, code = ?, planSpend =? WHERE shid=?",[category,code,planSpend,shid]);
+
+
     }, errorCB);
 };
 
@@ -263,8 +266,12 @@ function dbUpdateOrInsert(tx,type) {
     var balance = $(el).find(".last input").val();
     var shid = shidCurrentGet();
     //console.log('UPDATE wt'+currentWtable+' SET dater="'+dater+'", paid="'+paid+'", desc="'+desc+'", checkRef="'+checkRef+'", payment='+payment+', balance='+balance+' WHERE rowid='+rowID);
-    if(type=="update") tx.executeSql('UPDATE sheetsdata SET dater="'+dater+'", paid="'+paid+'", desc="'+desc+'", checkRef="'+checkRef+'", payment="'+String(payment)+'", balance="'+balance+'" WHERE rowid='+rowID+' and shid='+shid);
-    if(type=="insert") tx.executeSql('INSERT INTO sheetsdata (shid, rowid, dater, paid, desc, checkRef, payment, balance) VALUES ('+shid+','+rowID+', "'+dater+'", "'+paid+'", "'+desc+'", "'+checkRef+'", "'+payment+'", "'+balance+'")');
+
+    //if(type=="update") tx.executeSql('UPDATE sheetsdata SET dater="'+dater+'", paid="'+paid+'", desc="'+desc+'", checkRef="'+checkRef+'", payment="'+String(payment)+'", balance="'+balance+'" WHERE rowid='+rowID+' and shid='+shid);
+    if(type=="update") tx.executeSql('UPDATE sheetsdata SET dater=?, paid=?, desc=?, checkRef=?, payment=?, balance=? WHERE rowid=? and shid=?', [dater, paid, desc, checkRef, payment, balance,rowID,shid]);
+
+    //if(type=="insert") tx.executeSql('INSERT INTO sheetsdata (shid, rowid, dater, paid, desc, checkRef, payment, balance) VALUES ('+shid+','+rowID+', "'+dater+'", "'+paid+'", "'+desc+'", "'+checkRef+'", "'+payment+'", "'+balance+'")');
+    if(type=="insert") tx.executeSql('INSERT INTO sheetsdata (shid, rowid, dater, paid, desc, checkRef, payment, balance) VALUES (?,?,?,?,?,?,?,?)',[shid,rowID,dater,paid,desc,checkRef,payment,balance]);
 }
 
 db.loadSheet = function()
@@ -582,7 +589,7 @@ db.pieDataGetShid = function(success_callback)
                 for(var i=0;i<results.rows.length;i++)
                 {
                     // on the last run function
-                    if(i==results.rows.length-1) fun = pieRender;
+                    if(i==results.rows.length-1) fun = success_callback;
                     db.pieDataGetCount(results.rows.item(i).shid,results.rows.item(i).category,fun);
                 }
             }

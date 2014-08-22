@@ -161,11 +161,6 @@ div.tableHeader {
     border-collapse:collapse;
 }
 
-td
-{
-    text-align:center;
-    width: 10%;
-}
 
 .tableHeader div {
     display: table-cell;
@@ -467,7 +462,8 @@ div.instructions {
 .pieDelete {
     position: absolute;
     right: 0px;
-    padding: 5px;
+    padding: 4%;
+    z-index: 200;
 }
 .piePage {
     width: 100%;
@@ -479,6 +475,7 @@ div.instructions {
 .piePage h1 {
     text-align: center;
     margin-bottom: 0px;
+    font-size: 1.5em;
 }
 .pieWrapper {
     width: 100%;
@@ -487,7 +484,19 @@ div.instructions {
 #chartdiv {
     margin: auto;
 }
-
+#chartdivTable table {
+    width: 500px;
+    margin: auto;
+    border-collapse: collapse;
+    text-indent: 0.5em;
+}
+#chartdivTable td:nth-child(2) {
+    text-align: right;
+    padding-right: 0.5em;
+}
+#chartdivTable table, #chartdivTable th, #chartdivTable td {
+    border: 1px solid black;
+}
 
 #log {
     display: none;
