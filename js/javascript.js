@@ -349,8 +349,7 @@ function dateFormatIn(el)
             el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate();
 
             // happend when is cancel button press
-            if(date==null) return;
-            alert(date);
+            if(date=="Invalid Date") return;
 
             // focus next field
             var elNext = $(el).closest('span').next().find('input');
