@@ -344,12 +344,12 @@ function dateFormatIn(el)
     datePicker.show(options, function(date){
         if(date)
         {
+            // happend when is cancel button press
+            if(date=="Invalid Date") return;
+
             // fill date in input
             var newDate = new Date(date);
             el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate();
-
-            // happend when is cancel button press
-            if(date=="Invalid Date") return;
 
             // focus next field
             var elNext = $(el).closest('span').next().find('input');
