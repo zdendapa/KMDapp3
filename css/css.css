@@ -6,6 +6,9 @@ html, body {
     padding: 0px;
     font-family: 'Arial', sans-serif;
 }
+body {
+    position: relative;
+}
 
 input, li, span {
     padding: 0px;
