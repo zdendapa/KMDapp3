@@ -162,7 +162,8 @@ function transitionInit()
 
     if (typeof cordova !== 'undefined') {
 
-        cordova.plugins.ZoomControl.ZoomControl("true");
+        alert("removed");
+        //cordova.plugins.ZoomControl.ZoomControl("true");
         // enabling built in zoom control
         //cordova.plugins.ZoomControl.setBuiltInZoomControls("true");
         // enabling display zoom control
