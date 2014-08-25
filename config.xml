@@ -4,9 +4,17 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.initedsolutions.kmdPocketCompanion"
-        version   = "1.0j">
+        version   = "1.0k">
     <!--
         b   - balance recauculate update db
+        k   - phonegap 3.5
+            instructions input no-editable
+            config EnableViewportScale disabled (zooom doesnt work :()
+            datePickerOpen workaround to be opened only once
+            Payable To dropdown bigger on 1051px
+            pie chart no data alert added
+            pie total added
+            pie better responsive
     -->
 
     <preference name="phonegap-version"/>
@@ -45,8 +53,8 @@
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"      value="3.3.0" /> -->      <!-- all: current version of PhoneGap -->
-    <preference name="EnableViewportScale"        value="true" />
+    <preference name="phonegap-version"      value="3.5.0" /> -->      <!-- all: current version of PhoneGap -->
+    <!-- <preference name="EnableViewportScale"        value="true" /> I do it by meta tag user-scalable-->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->

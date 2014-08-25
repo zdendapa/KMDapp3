@@ -20,7 +20,7 @@ var lastSyncDate;   // date of last sync
 
 var db = {
     settings: {
-        shortName: 'kmdPocketCompanion_i',
+        shortName: 'kmdPocketCompanion_k',
         version: '1.0',
         displayName: 'KMD app',
         maxSize: 655367 // in bytes
@@ -580,6 +580,7 @@ db.pieDataGetShid = function(success_callback)
 {
     var code = $("#code option:selected").text();
     pieData = [];
+
     database.transaction(function(tx){
         tx.executeSql('SELECT shid, category from sheetsheaders where code ="'+code+'"', [], function(tx, results) {
 
@@ -592,7 +593,12 @@ db.pieDataGetShid = function(success_callback)
                     if(i==results.rows.length-1) fun = success_callback;
                     db.pieDataGetCount(results.rows.item(i).shid,results.rows.item(i).category,fun);
                 }
+            } else
+            {
+                alert("No data");
             }
+
+
         }, errorCB);
     }, errorCB);
 };
@@ -614,7 +620,13 @@ db.pieDataGetCount = function(sh,shName,success_callback)
                 pieData.push(s);
             }
 
-            if(success_callback && pieData.length>0) success_callback();
+            if(success_callback) {
+                if(pieData.length>0)
+                {
+                    success_callback();
+                } else
+                    alert("No data to show");
+            }
 
         }, errorCB);
     }, errorCB);

@@ -475,7 +475,10 @@ div.instructions {
 .piePage h1 {
     text-align: center;
     margin-bottom: 0px;
-    font-size: 1.5em;
+    font-size: 1em;
+    width: 60%;
+    margin: auto;
+    margin-top: 1em;
 }
 .pieWrapper {
     width: 100%;
@@ -485,7 +488,7 @@ div.instructions {
     margin: auto;
 }
 #chartdivTable table {
-    width: 500px;
+    width: 100%;
     margin: auto;
     border-collapse: collapse;
     text-indent: 0.5em;
@@ -898,8 +901,8 @@ div.instructions {
 
 @media only screen and (min-width: 1051px)  {
     .topMenu {
-        height: 40px;
-        line-height: 40px;
+        height: 60px;
+        line-height: 60px;
     }
     div.row:after {
         width: 40px;
@@ -909,7 +912,8 @@ div.instructions {
         font-size: 0.8em;
     }
     .categoryWidget input{
-        margin-top: 35px;
+        margin-top: 0px;
+        font-size: 1em;
     }
     .mainHeader h1, .mainHeader label, .mainHeader select,
     .topMenuMiddle div,.topMenu .row {
@@ -938,7 +942,8 @@ div.instructions {
     }
     div.row:after {
         width: 20px;
-        height: 40px;
+        height: 60px;
+        background-size: 20px 60px;
     }
     div.rowLeft2:after {
         left: 0px;
@@ -952,6 +957,12 @@ div.instructions {
     }
     .pie {
         width: 55px;
+    }
+    .pieWrapper {
+        font-size: 40px;
+    }
+    .piePage h1 {
+        font-size: 3em;
     }
     .mainHeader div.right {
         width: 50%;
