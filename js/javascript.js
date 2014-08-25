@@ -157,8 +157,10 @@ function transitionInit()
     }
 
     // zoom set up
-    $("body").css("width",$(document).width() +"px");
-    $("body").css("height",$(document).height() +"px");
+    var dimeWidth = $(document).width()>$(document).height()?$(document).height():$(document).width();
+    var dimeHeight = $(document).height()>$(document).width()?$(document).height():$(document).width();
+    $("body").css("min-width",dimeWidth +"px");
+    $("body").css("min-height",dimeHeight +"px");
 
     if (typeof cordova !== 'undefined') {
 
