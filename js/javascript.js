@@ -60,9 +60,9 @@ function init()
 
     cordova.plugins.ZoomControl.ZoomControl("true");
     // enabling built in zoom control
-    cordova.plugins.ZoomControl.setBuiltInZoomControls("true");
+    //cordova.plugins.ZoomControl.setBuiltInZoomControls("true");
     // enabling display zoom control
-    cordova.plugins.ZoomControl.setDisplayZoomControls("true");
+    //cordova.plugins.ZoomControl.setDisplayZoomControls("true");
 
     // by supported aceleration, prepare classes and view
     transitionInit();
