@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.initedsolutions.kmdPocketCompanion"
-        version   = "1.0k">
+        version   = "1.0l">
     <!--
         b   - balance recauculate update db
         k   - phonegap 3.5
@@ -15,6 +15,7 @@
             pie chart no data alert added
             pie total added
             pie better responsive
+            zoom plugin added
     -->
 
     <preference name="phonegap-version"/>
