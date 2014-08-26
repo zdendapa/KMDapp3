@@ -4,10 +4,10 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.initedsolutions.kmdPocketCompanion"
-        version   = "1.1">
+        version   = "1.2">
     <!--
         b   - balance recauculate update db
-        k   - phonegap 3.5
+        1.1   - phonegap 3.5
             instructions input no-editable
             config EnableViewportScale disabled (zooom doesnt work :()
             datePickerOpen workaround to be opened only once
@@ -16,6 +16,10 @@
             pie total added
             pie better responsive
             zoom plugin added
+        1.2
+        - datepicker, year added
+        - label Code change to Category
+        - pie chart diemnsion changed
     -->
 
     <preference name="phonegap-version"/>

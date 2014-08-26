@@ -12,6 +12,11 @@ lastSyncDate
     - when read xml si proceed lastSyncDate is set
     - on every focus a input, is get lastSyncDate from db. Value si put to memory inputValue
     - on every change is check if lastSyncDate > 30, then alert is shown and value put back from inputValue
+
+custom app different:
+ label: Category/Code #
+
+
  */
 
 var lastRowID = 0;
@@ -94,8 +99,8 @@ function pieRender()
 
 
     var dimension = $(document).width()>$(document).height()?$(document).height():$(document).width();
-    $("#chartdiv").css("width",dimension +"px");
-    $("#chartdiv").css("height",dimension +"px");
+    $("#chartdiv").css("width",dimension/2 +"px");
+    $("#chartdiv").css("height",dimension/2 +"px");
 
 
     var s1 = [['Sony',7], ['Samsumg',13.3], ['LG',14.7], ['Vizio',5.2], ['Insignia', 1.2]];
@@ -277,6 +282,9 @@ function newWTable()
     $("#category").val("");
     //$("#code").val('4011 "Housing"');
     $("#code").val($("#code option:first").val());
+
+    // when is on instructions, then is disabled
+    $('#category').attr("disabled", false);
     $("#planSpend").val("0.00");
     $("ul.content").empty();
     lastRowID  =0;
@@ -380,7 +388,7 @@ function dateFormatIn(el)
 
             // fill date in input
             var newDate = new Date(date);
-            el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate();
+            el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate() + "/" + newDate.getYear();
 
             // focus next field
             var elNext = $(el).closest('span').next().find('input');
@@ -491,11 +499,11 @@ function deleteAfterSelectCategory()
     $("#categorySelect option[value="+shidCurrentGet()+"]").remove();
     if($('#categorySelect > option').length<3){
         //$("categorySelect").prop('selectedIndex', 1);
-        $('#categorySelect :nth-child(1)').prop('selected', true);
+        $('#categorySelect :nth-child(2)').prop('selected', true);
 
     } else
     {
-        $('#categorySelect :nth-child(2)').prop('selected', true);
+        $('#categorySelect :nth-child(3)').prop('selected', true);
     }
 
     db.loadSheet();memPrev();

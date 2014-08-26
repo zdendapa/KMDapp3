@@ -59,7 +59,6 @@ div.categoryWidget {
     color: red;
 }
 .categoryWidget input {
-    margin-top: 20px;
     display: inline-block;
     width: 70%;
     border: 0;
@@ -450,7 +449,7 @@ div.instructions {
     display: none;
     font-size: 1.5em;
     line-height: 1.5em;
-    margin-top: 10px;
+    margin-top: 7px;
 }
 
 .instructions h1 {
@@ -502,6 +501,7 @@ div.instructions {
 }
 #chartdivTable table, #chartdivTable th, #chartdivTable td {
     border: 1px solid black;
+    margin-bottom: 10px;
 }
 
 #log {
@@ -527,6 +527,7 @@ div.instructions {
     .mainHeader h1, .mainHeader label, .mainHeader select,
     .topMenuMiddle div,.topMenu .row, .categoryWidget input {
         font-size: 8px;
+        margin-top: 0px;
     }
     .categoryWidget, .categoryWidget select {
         font-size: 0.8em;
@@ -581,6 +582,7 @@ div.instructions {
     div.instructions {
         font-size: 0.8em;
         line-height: 1em;
+        margin-top: 7px;
     }
 
 }
@@ -882,6 +884,7 @@ div.instructions {
     div.instructions {
         font-size: 2.5em;
         line-height: 1.8em;
+        margin-top: 25px;
     }
     .content input, .content select {
         font-size: 1.5em;
