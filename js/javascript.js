@@ -181,6 +181,10 @@ function transitionInit()
 function clickInit()
 {
 
+    if(menuButtonWork){
+        enableMenuButton();
+    }
+
     // add row on conent input change
     $(document).on('change', '.content input, .content select', function() {
         if(dbUpdater2(this))
@@ -223,12 +227,18 @@ function clickInit()
 
 
     // focus next field in table
-    $(document).on("keypress",".content input",function(e) {
+    $(document).on("keypress",".content input, #planSpend",function(e) {
         if (e.which == 13) {
+
+            if($(this).attr("id")=="planSpend")
+            {
+                this.blur();
+                return;
+            }
 
             if($(this).closest('span').hasClass("payment"))
             {
-                // last field
+                this.blur();
             } else if($(this).closest('span').hasClass("description"))
             {
                 var elNext = $(this).closest('span').next().find('select');
@@ -446,7 +456,7 @@ function addRow()
     logging("addRow",1);
     lastRowID ++;
 
-    $("ul.content").append('<li data-id="'+lastRowID+'"> <span class="dater"><input onchange="dateFormatCheck(this)" onfocus="dateFormatIn(this)"></span><span class="description"><input></span><span class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span><span class="checkRef"><input></span> <span class="payment"><input onchange="priceFormatCheck(this)"></span> <span class="last"><input readonly></span> </li>');
+    $("ul.content").append('<li data-id="'+lastRowID+'"> <span class="dater"><input onchange="dateFormatCheck(this)" onfocus="dateFormatIn(this)"></span><span class="description"><input></span><span class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span><span class="checkRef"><input></span> <span class="payment"><input></span> <span class="last"><input readonly></span> </li>');
 
     //date picker (without dateFormatCheck()) dont work on Android
     //$("ul.content").append('<li data-id="'+lastRowID+'"> <span class="dater"><input type="date" required="required"></span> <span  class="paid"><select>'+dbHowPaidOptionsHtml+'</select></span> <span class="description"><input></span> <span class="checkRef"><input></span> <span class="payment"><input onchange="priceFormatCheck(this)"></span> <span class="last"><input readonly></span> </li>');
