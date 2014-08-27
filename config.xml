@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.initedsolutions.kmdPocketCompanion"
-        version   = "1.2">
+        version   = "1.3">
     <!--
         b   - balance recauculate update db
         1.1   - phonegap 3.5
@@ -20,6 +20,12 @@
         - datepicker, year added
         - label Code change to Category
         - pie chart diemnsion changed
+        1.3
+        - meta viewport set old one
+        - starts screen disable set min-height of body
+        - logged last sync days
+        - console set up ready on menu
+        - on focus erase input fields amount and plan to spend
     -->
 
     <preference name="phonegap-version"/>
@@ -59,8 +65,8 @@
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"      value="3.5.0" /> -->      <!-- all: current version of PhoneGap -->
-    <!-- <preference name="EnableViewportScale"        value="true" /> I do it by meta tag user-scalable-->
+    <preference name="phonegap-version"      value="3.5.0" />               <!-- all: current version of PhoneGap -->
+    <preference name="EnableViewportScale"        value="true" />           <!--I do it by meta tag user-scalable-->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->

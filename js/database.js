@@ -20,7 +20,7 @@ var lastSyncDate;   // date of last sync
 
 var db = {
     settings: {
-        shortName: 'kmdPocketCompanion_l',
+        shortName: 'kmdPocketCompanion_m',
         version: '1.0',
         displayName: 'KMD app',
         maxSize: 655367 // in bytes
@@ -222,11 +222,10 @@ db.headerUpdate = function()
         var category = $("#category").val();
         //category = category.replace("'","\'");
         //category = category.replace(/'/g, "&#39;").replace(/"/g,"&quot;");
-        console.log("category after:" + category);
         var code = $("#code option:selected").text();
         var planSpend = $("#planSpend").val();
         var shid = shidCurrentGet();
-        console.log("UPDATE sheetsheaders SET category='"+category+"', code='"+code+"', planSpend='"+planSpend+"' WHERE shid='"+shid+"'");
+        //console.log("UPDATE sheetsheaders SET category='"+category+"', code='"+code+"', planSpend='"+planSpend+"' WHERE shid='"+shid+"'");
 
         tx.executeSql("UPDATE sheetsheaders SET category = ?, code = ?, planSpend =? WHERE shid=?",[category,code,planSpend,shid]);
 
@@ -344,7 +343,6 @@ db.recalculateBalance = function(success_callback)
             var shid = shidCurrentGet();
 
                 tx.executeSql('UPDATE sheetsdata SET payment="'+String(payment)+'", balance="'+balance+'" WHERE rowid='+rowID+' and shid='+shid);
-            console.log(rowID);
         });
     }, errorCB);
 };

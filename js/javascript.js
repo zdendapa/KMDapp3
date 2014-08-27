@@ -165,7 +165,7 @@ function transitionInit()
     var dimeWidth = $(document).width()>$(document).height()?$(document).height():$(document).width();
     var dimeHeight = $(document).height()>$(document).width()?$(document).height():$(document).width();
     $("body").css("min-width",dimeWidth +"px");
-    $("body").css("min-height",dimeHeight +"px");
+    //$("body").css("min-height",dimeHeight +"px");
 
     if (typeof cordova !== 'undefined') {
 
@@ -181,7 +181,7 @@ function transitionInit()
 function clickInit()
 {
 
-
+    // add row on conent input change
     $(document).on('change', '.content input, .content select', function() {
         if(dbUpdater2(this))
         {
@@ -190,12 +190,21 @@ function clickInit()
         }
     });
 
+    // instructions check-box
     $(document).on('click', '.instructions input', function() {
         var el = $(this);
         setTimeout(function(){
             startTable(el);
         },50)
 
+    });
+
+
+    $(document).on('focus', '#planSpend, .content .payment input', function() {
+        this.value='';
+    });
+    $(document).on('focusout', '#planSpend, .content .payment input', function() {
+        priceFormatCheck(this);
     });
 
     // read date of sync from db.
@@ -309,7 +318,7 @@ function recalculateBalance()
 
         } else
         {
-            $(this).find(".payment input").val(0);
+            $(this).find(".payment input").val("0.00");
             payment = 0;
         }
         total = parseFloat(Math.round((total-payment) * 100) / 100).toFixed(2);
@@ -337,12 +346,17 @@ function priceFormatCheck(el)
     value = el.value;
     var proceedUpdate = true;
 
+    if(el.value == "")
+    {
+        $(el).val("0.00");
+        proceedUpdate = false;
+    } else
     // is it positive number?
     if(isNaN(Number(value)) || Number(value)<0)
     {
         alert("This value must be positive real number");
         //$("#planSpend").val("0");
-        $(el).val("0");
+        $(el).val("0.00");
         proceedUpdate = false;
     }
 
@@ -449,7 +463,7 @@ function updateHeader()
     if(isNaN(Number(planSpend)))
     {
         alert("Plan to spend must be positive real number");
-        $("#planSpend").val("0");
+        $("#planSpend").val("0.00");
         proceedUpdate = false;
     }
 
@@ -600,15 +614,18 @@ function memPrev()
 function lastSyncOK()
 {
     var state = true;
-    console.log("last read:" + lastSyncDate);
     if(lastSyncDate!=null)
     {
         currentDate = new Date();
         var ar = lastSyncDate.split("-");
         d_lastExportDate = new Date(ar[0],ar[1]-1,ar[2],ar[3],ar[4]);
+        logging("last export date: " + d_lastExportDate);
+        logging("current date: " + currentDate);
+
         var oneDay = 24*60*60*1000;
         var diffDays = Math.round(Math.abs((currentDate.getTime() - d_lastExportDate.getTime())/(oneDay)));
         //diffDays = 50;
+        logging("diff days: " + diffDays);
         if(diffDays>45)
         {
             alert('This app stops after 45 days. You cannot make any further changes. Please answer some questions about how the app worked for you.');
@@ -619,6 +636,7 @@ function lastSyncOK()
             state = false;
         }
     }
+
 
 
     firstInsert = true;
@@ -636,8 +654,9 @@ function focusSetNext(el)
 
 //-------------------------------------------------------------------
 // level: 1=INFO, 2=WARNING, 3=ERROR
+// v2
 function logging(str, level) {
-    if (level == 1) console.log("INFO:" + str);
+    if (level == 1 || level == null) console.log("INFO:" + str);
     if (level == 2) console.log("WARN:" + str);
     if (level == 3) alert("ERROR:" + str);
     if(loggingAlert) alert(str);
