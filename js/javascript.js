@@ -168,12 +168,18 @@ function transitionInit()
     //$("body").css("min-height",dimeHeight +"px");
 
     if (typeof cordova !== 'undefined') {
+        if (typeof cordova.plugins !== 'undefined') {
+            if (typeof cordova.plugins.ZoomControl !== 'undefined') {
+                cordova.plugins.ZoomControl.ZoomControl("true");
+                // enabling built in zoom control
+                //cordova.plugins.ZoomControl.setBuiltInZoomControls("true");
+                // enabling display zoom control
+                //cordova.plugins.ZoomControl.setDisplayZoomControls("true");
+            }
 
-        cordova.plugins.ZoomControl.ZoomControl("true");
-        // enabling built in zoom control
-        //cordova.plugins.ZoomControl.setBuiltInZoomControls("true");
-        // enabling display zoom control
-        //cordova.plugins.ZoomControl.setDisplayZoomControls("true");
+        }
+
+
     }
 
 }
@@ -412,7 +418,11 @@ function dateFormatIn(el)
 
             // fill date in input
             var newDate = new Date(date);
+
+
             el.value = (Number(newDate.getMonth()) + 1) + "/" + newDate.getDate() + "/" + newDate.getFullYear().toString().substr(2,2);
+
+            dbUpdater2(el);
 
             // focus next field
             var elNext = $(el).closest('span').next().find('input');

@@ -20,7 +20,7 @@ var lastSyncDate;   // date of last sync
 
 var db = {
     settings: {
-        shortName: 'kmdPocketCompanion_m',
+        shortName: 'kmdPocketCompanion_n',
         version: '1.0',
         displayName: 'KMD app',
         maxSize: 655367 // in bytes
@@ -75,6 +75,7 @@ db.createTables = function()
         tx.executeSql('CREATE TABLE IF NOT EXISTS code (code TEXT)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS howPaid (howPaid TEXT)');
 
+
         database.transaction(function(tx) {
             tx.executeSql('SELECT count(*) as c FROM sqlite_master WHERE type="table" AND name="meta"', [], function(tx, results) {
                 if(results.rows.item(0).c == 0)
@@ -89,6 +90,7 @@ db.createTables = function()
                 }
             }, errorCB);
         }, errorCB);
+
 
         // check data and if exist generate file
         //db.sheetsdataRowsCount(generateFile);
