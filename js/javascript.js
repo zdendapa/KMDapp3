@@ -723,3 +723,9 @@ function numDecimalCorrection(numr,decimals)
     numr = numr + "00";
     return numr.substring(0,numr.indexOf(".")+3);
 }
+function xmlSpecCharEn2(str)
+{
+    return str
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
